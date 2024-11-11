@@ -20,9 +20,19 @@ store 라는 인스턴스 필드를 공유하고 있기 때문에 값을 덮어�
 16:34:58.270 [Thread-A] INFO thread.local.BeforeThreadLocal -- [조회] store=userB </br>
 16:35:00.264 [Thread-B] INFO thread.local.BeforeThreadLocal -- [조회] store=userB </br>
 
+## 적용 후 결과
+스레드 로컬을 적용하면 각 스레드가 자신의 고유한 저장 공간을 갖기 때문에 독립적으로 인스턴스 필드를 사용하는 것처럼 동작하게 된다.
+17:14:22.674 [Thread-A] INFO thread.local.AfterThreadLocal -- [저장] name=userA, store=null </br>
+17:14:24.674 [Thread-B] INFO thread.local.AfterThreadLocal -- [저장] name=userB, store=null </br>
+17:14:25.689 [Thread-A] INFO thread.local.AfterThreadLocal -- [조회] store=userA </br>
+17:14:27.678 [Thread-B] INFO thread.local.AfterThreadLocal -- [조회] store=userB </br>
+
 --------------
 
 # 스레드 로컬(Thread Local)을 사용하는 이유는 무엇인가요?
+모든 스레드는 같은 인스턴스 필드를 공유하기 때문에 데이터가 덮어씌워질 수 있습니다. </br>
+데이터가 덮어씌워지는 것을 방지하기 위해 스레드 로컬을 사용해야 합니다. </br>
+스레드 로컬을 사용하면 각 스레드는 자신의 고유한 저장 공간을 갖기 때문에 다른 스레드와 상관없이 독립적으로 값을 저장하고 사용할 수 있어서 데이터가 덮어씌워지는 것을 방지할 수 있습니다.
 
 # 스레드 로컬의 메모리 누수가 발생할 수 있는 상황은 언제인가요?
 
